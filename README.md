@@ -2,7 +2,7 @@
 
 # Gridmap Navigator
 
-<img src="dokumentaatio/png/ruutukartta.png" width="750">
+<img src="documentation/png/ruutukartta.png" width="750">
 
 The application is a gridmap navigator, which finds the best route between two grid nodes.  Every grid node on the map has a value (1-9) representing the cost or time increment added when the route is passing the node.
 
