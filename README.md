@@ -14,7 +14,7 @@ The program is written in Python.
 
 ## Documentation
 
-[Definition](https://github.com/lautanal/datastructures_lab/blob/master/documentation/definitioni.md)
+[Definition](https://github.com/lautanal/datastructures_lab/blob/master/documentation/definition.md)
 
 [Test Document](https://github.com/lautanal/datastructures_lab/blob/master/documentation/tests.md)
 
