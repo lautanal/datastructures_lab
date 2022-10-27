@@ -10,7 +10,7 @@ Testikattavuus voidaan raportoida komennolla: poetry run coverage report -m
 
 Kattavuusraportti:
 
-<img src="/dokumentaatio/png/testikattavuus.png" width="750">
+<img src="png/testikattavuus.png" width="750">
 
 ### Empiirinen testaus
 
@@ -23,7 +23,7 @@ Graafisen käyttöliittymän avulla varmistetaan helposti, että eri algoritmit 
 Ottamalla animaatio käyttöön, voidaan lisäksi tarkastella eri algoritmien etenemistä ja mitkä solmut ovat kulloinkin käsittelyssä ja missä järjestyksessä.  
 
 \
-<img src="/dokumentaatio/png/testi06a.png" width="750">
+<img src="png/testi06a.png" width="750">
 
 ### Suorituskyvyn testaus
 
