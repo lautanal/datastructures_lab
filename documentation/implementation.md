@@ -6,7 +6,7 @@ The program is written in Python version 3.8.8. using object-oriented methods.
 
 General structure of the code is:
 
-<img src="/dokumentaatio/png/uml-kaavio.png" width="750">
+<img src="png/uml-kaavio.png" width="750">
 
 - Pääohjelma bestroute.py käynnistää Ui-luokan määrittelemän käyttöliittymän
 - Ui-luokka luo Pygame-kirjaston avulla graafisen käyttöliittymän

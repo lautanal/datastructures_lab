@@ -1,4 +1,4 @@
-<img src="/dokumentaatio/png/reittikartta.png" width="750">
+<img src="png/reittikartta.png" width="750">
 
 ## Aihe
 
