@@ -1,0 +1,36 @@
+Ruutukarttanavigaattori etsii parhaan reitin kartan kahden pisteen välillä. Joka ruudulla on painoarvo, joka vastaa kustannusta tai aikaa, joka kuluu ruudun läpi mentäessä. Käyttäjä valitsee hiirellä reitin alku- ja loppupisteen ja lisää halutessaan esteet, joiden läpi reitti ei voi kulkea.
+
+Ohjelma vaatii Pygame-kirjaston asennuksen. Ohjelma kopioidaan haluttuun hakemistoon ja sille luodaan virtuaaliympäristö seuraavasti:
+$ poetry install
+
+Ohjelma käynnistetään komennolla:
+$ poetry run python3 src/bestroute.py
+
+Käyttäjä valitsee lähtö- ja maaliruudun hiiren vasemmalla näppäimellä.  Kun lähtö ja maali on valittu, hiiren vasemmalla näppäimellä voi asettaa esteet, joiden läpi reitti ei voi kulkea.  Lähdön ja maalin sekä esteet voi poistaa hiiren oikealla näppäimellä.
+
+Haluttu menetelmä reitin hakemiseen valitaan näppäimellä m.
+Laskenta käynnistetään näppäimellä s.
+
+Ohjelman näppäinkomennot:
+c : clear, poistaa kartan ja generoi uuden
+r : reset, pyyhkii lasketun reitin
+m : metodi, Dijkstra / A* / IDA*
+d : diagonal, polun tyyppi, vain x ja y-suunnat / väli-ilmansuunnat sallittu
+s : start, laskee parhaan reitin
+a: animointi päälle / pois
+
+\+ : lisää ruutujen lukumäärää 10:llä molemmissa suunnissa ja generoi uuden kartan
+\- : vähentää ruutujen lukumäärää 10:llä molemmissa suunnissa ja generoi uuden kartan
+1 : lataa kartta 1.map (hakemistosta data/maps)
+2 : lataa kartta 2.map (hakemistosta data/maps)
+w: write, talleta kartta tiedostoon f.map (hakemistoon data/maps)
+f: file, lue karttatiedosto f.map (hakemistosta data/maps)
+e: edit, editoi karttaa
+q: quit, lopeta editointi
+
+Hiiren toiminnot:
+Hiiren vasen näppäin valitsee reitin lähtöpisteen (jos sitä ei ole ennestään kartalla)
+Hiiren vasen näppäin valitsee reitin loppupisteen (kun lähtöpiste on valittu)
+Hiiren vasen näppän asettaa esteen (kun alku- ja loppupiste on asetettu)
+Hiiren oikea näppäin pyyhkii ruudun (alkupisteen, loppupisteen tai esteen)
+Editoinnissa hiiren vasen näppäin lisää ruudun painoarvoa, oikea vähentää
