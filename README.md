@@ -1,6 +1,6 @@
 # Data Structures Laboratory 
 
-# Grid map Navigator
+# Grid Map Navigator
 
 <img src="documentation/png/ruutukartta.png" width="750">
 
