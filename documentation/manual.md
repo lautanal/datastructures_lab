@@ -2,7 +2,7 @@
 
 ## Download
 
-Download release [release](https://github.com/lautanal/tiralabra/releases/tag/Final).
+Download [release](https://github.com/lautanal/tiralabra/releases/tag/Final).
 
 ## Installation
 
@@ -12,7 +12,7 @@ A virtual environment is created:
 
 $ poetry install
 
-## Program running
+## Running
 
 The program is run in the installation folder using the following command:
 
@@ -24,12 +24,11 @@ The program is run and controlled through a user interface :
 
 <img src="png/ui3.png" width="750">
 
-Käyttäjä valitsee lähtö- ja maaliruudun hiiren vasemmalla näppäimellä.  Kun lähtö ja maali on valittu, hiiren vasemmalla näppäimellä voi asettaa esteet, joiden läpi reitti ei voi kulkea.
-Lähdön ja maalin sekä esteet voi poistaa hiiren oikealla näppäimellä.
+The user chooses the start and end points with a mouse left click.  After choosing the start and end point, the user can mark the blocked nodes with a mouse left click.  Start and end points and blocked nodes can be erased with a mouse right click.
 
 The algorithm is chosen with keyboard command m.
 
-Route finding starts with keyboard command s.
+Route calculation starts with keyboard command s.
 
 ## Commands
 
