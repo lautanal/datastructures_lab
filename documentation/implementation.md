@@ -40,7 +40,7 @@ Performance tests are accomplished with different map sizes.  The best route is 
 
 ### Weighted maps
 
-Kullakin ruudulla on painoarvo, joka kertoo ajan tai kustannuksen reitin kulkiessa ruudun kautta.  The route can pass between nodes only orthogonally.
+All nodes have a weight that represent a cost or time increment when route passes the node.  The route can pass between nodes only orthogonally.
 
 Grid size | Nodes | Edges | V + E log V | Algorithm | Average runtime (10 maps)|
 --------|--------|--------|--------|-------------|-------------|
@@ -95,7 +95,7 @@ The measured Dijkstra, A\*- ja JPS time complexities are in accordance with the 
 
 <img src="/dokumentaatio/png/aikavaativuus2b.png" width="750">
 
-A\* method is almost allways the best route finding algorithm.  Dijkstran method works also well, but IDA\* is not at its best in this kind of grid maps.  JPS-mmethod works well when it can be used (weightless grid maps).
+A\* method is almost allways the best route finding algorithm.  Dijkstra method works also well, but IDA\* is not at its best with this kind of grid maps.  JPS method works well when it can be used (weightless grid maps).
 
 ## Defects and improvements
 
