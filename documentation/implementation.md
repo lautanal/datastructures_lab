@@ -8,42 +8,41 @@ General structure of the code is:
 
 <img src="png/uml-kaavio.png" width="750">
 
-- Pääohjelma bestroute.py käynnistää Ui-luokan määrittelemän käyttöliittymän
-- Ui-luokka luo Pygame-kirjaston avulla graafisen käyttöliittymän
-- Ui-luokka luo Map-luokan olion, joka mallintaa ruutukarttaa
-- Map luokka luo Node-luokan oliot, jotka mallintavat kartan ruutuja
-- Ui luokka luo Algorithm-luokan olion, joka käynnistää polun etsinnän
-- Algorithm-luokka kutsuu käyttäjän valinnan mukaan tarvittavaa algoritmia (Dijkstra, A*, IDA* tai JPS)
-- Dijkstra-algoritmi käyttää minimikeon tietorakenteena Bheap-luokkaa
-- Piirtorutiinit on keskitetty Draw-luokkaan
-- Tiedostojen luku ja kirjoitus tehdään Files-luokan avulla
-- Suorituskykytestit tehdään Perftest-luokan avulla
+- The main program bestroute.py starts the user interface defined in Ui class
+- The Ui class creates a graphical user interface using the Pygame library
+- The Ui class creates an instance of Map class, that models a grid map
+- The Map class creates Node class objects, that model grid map nodes
+- The Ui class creates an Algorithm class object, that makes the route claculations
+- The Algorithm class calls the selected algorithm (Dijkstra, A*, IDA* tai JPS)
+- Dijkstra algorithm uses a binary heap which is defined in the Bheap class
+- Pygame drawing routines are defined in the Draw class
+- File input and output functions are defined in Files class
+- Performance tests are defined in the Perftest class
 
-## Käytetyt algoritmit ja tietorakenteet
-
-Parhaan reitin hakemisessa on käytetty neljää vaihtoehtoista algoritmia:
+## Used algorithms and data structures
 
 ### Dijkstra
-Dijkstran menetelmä käyttää minimikekoa käsiteltävien solmujen tallennukseen.  Ohjelma ottaa keosta käsittelyyn aina solmun, jonka etäisyysarvo lähtösolmusta on pienin.  Tässä ohjelmassa minimikeko on toteutettu omalla Bheap-luokalla.
+Dijkstra algorithm stores the nodes in a binary heap.  The program takes always the node from the heap that has a minimum distance from start node.  The binary heap is constructed in the Bheap class.
 
 ### A*
-A* -menetelmä on hyvin samankaltainen Dijkstran menetelmän kanssa.  Lisäksi käytössä on  heuristiikka, joka ennustaa etäisyyden maaliin.  A* -menetelmän minimikeko on toteutettu Pythonin standardikirjaston heapq-moduulin avulla.
+A* -method is like Dijkstra method with heuristics that forecast the distance to the goal.  A* method uses the Pythonin standard library heapq-module.
 
 ### IDA*
-IDA* -menetelmä yhdistää A*-menetelmään syvyyshaun.  Syvyyshaku etenee käsiteltävästä solmusta syvemmälle verkkoon kunnes saavutetaan ennalta määritelty hakukynnys. Seuraavalla hakukierroksella jatketaan solmusta, jolla on pienin hakukynnyksen ylittävä arvo.  IDA* -menetelmän minimikeko on toteutettu Pythonin standardikirjaston heapq-moduulin avulla.
+IDA* method adds depth search to A* algorithm.  IDA* method uses the Pythonin standard library heapq-module.
+
 
 ### Jump Point Search
-JPS-menetelmä soveltuu polun etsintään kun kyseessä on painottamaton verkko (kaikki ruudut saman arvoisia) ja viistoon siirtymät polussa on sallittu.  Se voi nopeuttaa laskentaa huomattavasti kun tarpeettomien solmujen käsittely voidaan ohittaa.
+JPS can be used when the grid is weightless and diagonal paths are allowed between nodes.
 
-## Suorituskykyvertailu ja aikavaativuudet
+## Performance tests
 
-Suorituskykytestit on tehty eri kokoisilla random-kartoilla.  Paras reitti on haettu kullakin kartalla kaikilla soveltuvilla eri menetelmillä. 
+Performance tests are accomplished with different map sizes.  The best route is calculated with different methods. 
 
-### Painotetut kartat
+### Weighted maps
 
-Kullakin ruudulla on painoarvo, joka kertoo ajan tai kustannuksen reitin kulkiessa ruudun kautta.  Reitti voi kulkea ruutujen välillä vain vaaka- ja pystysuoraan.
+Kullakin ruudulla on painoarvo, joka kertoo ajan tai kustannuksen reitin kulkiessa ruudun kautta.  The route can pass between nodes only orthogonally.
 
-Verkon koko | Solmut | Kaaret | V + E log V | Algoritmi | Hakuajan keskiarvo (10 karttaa)|
+Grid size | Nodes | Edges | V + E log V | Algorithm | Average runtime (10 maps)|
 --------|--------|--------|--------|-------------|-------------|
 | 100 x 100 | 10000 | 19800 | 273097 | Dijkstra | 0.0896 |
 | | | | | A\* | 0.0367 |
@@ -62,11 +61,11 @@ Verkon koko | Solmut | Kaaret | V + E log V | Algoritmi | Hakuajan keskiarvo (10
 | | | | | IDA\*   | 56.3359 |
 
 
-### Painottamattomat kartat
+### Wehtless grid maps
 
-Kartan ruudut ovat saman arvoisia ja polku voi kulkea viistoon ruutujen välillä.
+All nodes are equal and route can pass diagonally between nodes.
 
-Verkon koko | Solmut | Kaaret | V + E log V | Algoritmi | Hakuajan keskiarvo (10 karttaa)|
+Grid size | Nodes | Edges | V + E log V | Algorithm | Average runtime (10 maps)|
 --------|--------|--------|--------|-------------|-------------|
 | 100 x 100 | 10000 | 39402 | 533562 | Dijkstra | 0.1218 |
 | | | | | A\* | 0.0508 |
@@ -90,19 +89,19 @@ Verkon koko | Solmut | Kaaret | V + E log V | Algoritmi | Hakuajan keskiarvo (10
 | | | | | JPS | 2.6955 |
 
 
-### Aikavaativuudet
+### Time complexity
 
-Mitatut Dijkstran, A\*- ja JPS-menetelmien aikavaativuudet vastaavat hyvin teorian mukaista O(V + E logV) aikavaativuutta.
+The measured Dijkstra, A\*- ja JPS time complexities are in accordance with the theoretical O(V + E logV) time complexity.
 
 <img src="/dokumentaatio/png/aikavaativuus2b.png" width="750">
 
-A\* -menetelmä on melkein kautta linjan nopein vaikka painotetussa verkossa heuristiikka ei toimikaan parhaalla mahdollisella tavalla.  Dijkstran menetelmä toimii myös melko hyvin, mutta IDA\* ei näytä olevan hyvä ratkaisija tämän tapaisissa verkoissa.  JPS-menetelmä toimii hyvin silloin, kun sitä voi käyttää.
+A\* method is almost allways the best route finding algorithm.  Dijkstran method works also well, but IDA\* is not at its best in this kind of grid maps.  JPS-mmethod works well when it can be used (weightless grid maps).
 
-## Puutteet ja parannukset
+## Defects and improvements
 
-JPS-menetelmää ei voi käyttää painotetussa ruutuverkossa.  JPS-menetelmä edellyttää myös, että vinot siirtymät karttaruutujen välillä sallitaan.
+JPS-method can not be used in a weighted grid map.  JPS-method accepts a diagonal route between  nodes.
 
-IDA*-algoritmi ei ilmeisesti ole parhaimmillaan tämänkaltaisten ruutukarttojen reitinlaskennassa.  Suorituskykyä pystyisi todennäköisesti parantamaan ottamalla käyttöön erilaisia tarkistuksia ja optimointeja.
+IDA*-algorithm is not very well suited for weighted grid maps.
 
-Pygame-kirjaston animaatio on toisinaan melko hidas.  En ole ehtinyt perehtyä, mistä tämä johtuu.  Todennäköisesti sitä pystyy nopeuttamaan huomattavasti.
+Pygame library is sometimes very slow.
 
