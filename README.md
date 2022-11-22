@@ -18,8 +18,6 @@ The program is written in Python.
 
 [Implementation ](https://github.com/lautanal/datastructures_lab/blob/master/documentation/implementation.md)
 
-[Test Document](https://github.com/lautanal/datastructures_lab/blob/master/documentation/tests.md)
-
 [User Manual](https://github.com/lautanal/datastructures_lab/blob/master/documentation/manual.md)
 
 ## Releases
