@@ -1,12 +1,12 @@
 <img src="png/reittikartta.png" width="750">
 
-## Aihe
+## Definition
 
-Sovellus on ruutukarttaa hyväksi käyttävä navigaattori, joka löytää parhaan reitin kahden pisteen välillä.  
+The application is a grid map navigator, which finds the best route between two grid nodes.  Every grid node on the map has a value (1-9) representing the cost or time increment added when the route is passing the node.
 
-Kartan jokaisella ruuduilla on tietty painoarvo (esim. välillä 1-9), joka kertoo kustannuksen tai ajan lisäyksen reitin kulkiessa ruudun kautta.  Polku voi kulkea ruutujen välillä käyttäjän valinnan mukaan joko ainoastaan vaaka- ja pystysuoraan tai valinnaisesti myös viistoon ns. väli-ilmansuuntiin.
+Route finding can be tested with different algorithms; Dijkstra, A*, IDA* and Jump Point Search.
 
-Polun etsinnän ohella vertaillaan myös algoritmien tehokkuutta toisiinsa nähden.
+The route can pass from one grid node to its neighbour nodes either orthogonally or both orthogonally and diagonally.
 
 ## Programming language
 
