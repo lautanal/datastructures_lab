@@ -1,17 +1,17 @@
 class Bheap:
-    """Luokka, joka mallintaa binäärikeon
+    """Class that creates a binary heap
 
     Attributes:
-        heap: Keko
-        size: Keon koko
-        maxsize: Maksimikoko
+        heap: Heap
+        size: Heap size
+        maxsize: Heap max size
     """
 
     def __init__(self, size):
-        """Luokan konstruktori, joka luo uuden binääriminimikeon.
+        """Constructor to create a new heap
 
         Args:
-            size: Keon maksimikoko
+            size: max size
         """
         self.heap = [None] * (size+1)
         self.size = 0
@@ -19,16 +19,16 @@ class Bheap:
 
 
     def empty(self):
-        """Tarkistus, onko keko tyhjä.
+        """Check if heap is empty
 
         Returns:
-            True, jos keko tyhjä.
+            True, if empty.
         """
         return self.size == 0
 
 
     def put(self, value):
-        """Uuden alkion tallennus kekoon.
+        """New element in heap
         """
         if self.size + 1 == self.maxsize:
             return
@@ -38,10 +38,10 @@ class Bheap:
 
 
     def get(self):
-        """Pienin alkio ulos keosta.
+        """Smallest element in heap out
 
         Returns:
-            Pienin alkio keossa.
+            Smallest element in heap
         """
         if self.size == 0:
             return None
@@ -55,7 +55,7 @@ class Bheap:
 
 
     def heapify_put(self, index):
-        """Korjataan keon rakenne minimikeoksi uuden alkion lisäämisen jälkeen.
+        """Modify heap after new element in
         """
         parent = index // 2
         if index <= 1:
@@ -66,7 +66,7 @@ class Bheap:
 
 
     def heapify_get(self, index):
-        """Korjataan keon rakenne minimikeoksi alkion poiston jälkeen.
+        """Modify heap after element out
         """
         left = index * 2
         right = index * 2 + 1
@@ -90,7 +90,7 @@ class Bheap:
 
 
     def swap(self, index1, index2):
-        """Alkioiden paikan vaihto keossa.
+        """Swap elements in heap
         """
         temp = self.heap[index1]
         self.heap[index1] = self.heap[index2]

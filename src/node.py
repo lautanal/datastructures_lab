@@ -1,32 +1,32 @@
 class Node:
-    """Luokka, joka mallintaa karttaruudun
+    """Class to model a map grid node
 
     Attributes:
-        row: Rivinumero
-        col: Sarakenumero
-        x: Ruudun x-koordinaatti (vasen ylänurkka)
-        y: Ruudun y-koordinaatti (vasen ylänurkka)
-        cost: Ruudun painoarvo
-        neighbors; Ruudun naapuriruudut
-        start: Ruutu on lähtöruutu
-        goal: Ruutu on maaliruutu
+        row: Row number
+        col: Column number
+        x: Node x-coordinate (top left corner)
+        y: Node y-coordinate (top left corner)
+        cost: Node weight (or cost)
+        neighbors; Node neighbours
+        start: Node is start node
+        goal: Node is goal node
         blocked: Ruutu on este
-        visited: Ruudussa on vierailtu
-        visited_jps: Ruudun kautta kulkeva reitti on tutkittu (JPS)
-        previous: Edellinen ruutu reitillä
-        path: Ruutu on lasketulla polulla
-        costsum: Reitin hinta (tai aika)
-        heuristic: Ruudulle laskettu heuristiikka
+        visited: Node has been visited
+        visited_jps: Path through node has been checked (JPS)
+        previous: Previous node on route
+        path: Node is on the calculated route
+        costsum: Route cost (or time)
+        heuristic: Node calculated heuristics
     """
 
 
     def __init__(self, row, col, gsize):
-        """Luokan konstruktori, joka luo uuden karttaruudun.
+        """Class constructor to create a new node.
 
         Args:
-            row: Rivinumero
-            col: Sarakenumero
-            gsize: Karttaruudun koko pikseleinä
+            row: Row number
+            col: Column number
+            gsize: Grid node size in pixels
         """
         self.row = row
         self.col = col
@@ -52,7 +52,7 @@ class Node:
 
 
     def clear(self):
-        """ Ruudun reset
+        """ Node reset
         """
         self.start = False
         self.goal = False
@@ -60,48 +60,48 @@ class Node:
 
 
     def get_pos(self):
-        """ Ruudun paikka
+        """ Node position
 
         Returns:
-            row, col (Tuple): Ruudun rivi ja sarake
+            row, col (Tuple): Node row and column
         """
         return self.row, self.col
 
 
     def mark_path(self):
-        """ Reittiruutu
+        """ Route node
         """
         self.path = True
 
 
     def set_blocked(self):
-        """ Esteruutu
+        """ Obstacle node
         """
         self.blocked = True
 
 
     def set_goal(self):
-        """ Maaliruutu
+        """ Goal node
         """
         self.goal = True
         self.blocked = False
 
 
     def set_start(self):
-        """ Lähtöruutu
+        """ Start node
         """
         self.start = True
         self.blocked = False
 
 
     def set_visited(self):
-        """ Vierailtu ruutu
+        """ Visited node
         """
         self.visited = True
 
 
     def set_visited_jps(self, dir):
-        """ Talletetaan vierailu skannaussuunta
+        """ Record scanning direction (JPS)
         """
         if dir == (1,0):
             self.visited_jps[0] = 1
@@ -122,7 +122,7 @@ class Node:
 
 
     def check_visited_jps(self, dir):
-        """ Tarkistetaan onko reitti jo tutkittu
+        """ Check if route already examined (JPS)
         """
         if dir == (1,0):
             return self.visited_jps[0] == 1

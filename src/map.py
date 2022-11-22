@@ -4,24 +4,24 @@ from node import Node
 
 
 class Map:
-    """Luokka, joka mallintaa karttaruudukon
+    """Class to model a grid map
 
     Attributes:
-        nrows: Rivien lukumäärä
-        ncols: Sarakkeiden lukumäärä
-        gsize: Karttaruudun koko pikseleinä
-        nodes: Karttaruudut taulukkona
-        start: Lähtöruutu
-        goal: Maaliruutu
+        nrows: Number of rows
+        ncols: Number of columns
+        gsize: Grid node size in pixels
+        nodes: Grid nodes array
+        start: Start node
+        goal: Goal node
     """
 
     def __init__(self, nrows, ncols, gsize):
-        """Luokan konstruktori, joka luo uuden karttaruudukon.
+        """Contructor to create a new grid map
 
         Args:
-            nrows: Rivien lukumäärä
-            ncols: Sarakkeiden lukumäärä
-            gsize: Karttaruudun koko pikseleinä
+            nrows: Number of rows
+            ncols: Number of columns
+            gsize: Grid node size in pixels
         """
         self.nrows = nrows
         self.ncols = ncols
@@ -34,7 +34,7 @@ class Map:
 
 
     def make(self):
-        """ Solmujen luonti
+        """ Creation of nodes
         """
         for i in range(self.nrows):
             self.nodes.append([])
@@ -44,7 +44,7 @@ class Map:
 
 
     def generate_costs(self):
-        """ Kartan random-generointi (solmujen painot)
+        """ Random generation of a map (node weights)
         """
         self.weighted = True
         costmap = [[random.randrange(1, 10, 1) for _ in range(self.ncols)] for _ in range(self.nrows)]
@@ -54,7 +54,7 @@ class Map:
 
 
     def generate_obstacles(self):
-        """ Kartan random-generointi (esteiden paikat)
+        """ Random generation of a map (obstacle positions)
         """
         self.weighted = False
         costmap = [[random.randrange(1, 6, 1) for _ in range(self.ncols)] for _ in range(self.nrows)]
@@ -65,13 +65,13 @@ class Map:
 
 
     def on_map(self, row, col):
-        """ Tarkastetaan, onko ruutu kartalla
+        """ Check if a node is on the map
         """
         return row >= 0 and row < self.nrows and col >= 0 and col < self.ncols
 
 
     def set_costs(self, maparray):
-        """ Kartan solmujen painoarvot (kartta luettu tiedostosta)
+        """ Grid node weights (a map from a file)
         """
         self.weighted = False
         for row in self.nodes:
@@ -91,9 +91,9 @@ class Map:
 
 
     def set_start(self, start):
-        """ Lähtöpiste
+        """ Start node
         """
-        # Isompi starttimerkki
+        # Big size start marker
         if self.gsize < 10:
             if start:
                 if self.on_map(start.row-1, start.col): 
@@ -114,14 +114,14 @@ class Map:
                 if self.on_map(self.start.row, self.start.col+1): 
                     self.nodes[self.start.row][self.start.col+1].startmark = False
 
-        # Uusi lähtöpiste
+        # New start
         self.start = start
 
 
     def set_goal(self, goal):
-        """ Maalipiste
+        """ Goal node
         """
-        # Suurempi maalimerkki
+        # Big size goal marker
         if self.gsize < 10:
             if goal:
                 if self.on_map(goal.row-1, goal.col): 
@@ -142,12 +142,12 @@ class Map:
                 if self.on_map(self.goal.row, self.goal.col+1): 
                     self.nodes[self.goal.row][self.goal.col+1].goalmark = False
                     
-        # Uusi maalipiste
+        # New goal
         self.goal = goal
 
 
     def neighbors_xy(self):
-        """ Solmujen naapurit, xy-polku
+        """ Node neighbours, xy-path
         """
         for row in self.nodes:
             for node in row:
@@ -168,7 +168,7 @@ class Map:
 
 
     def neighbors_diag(self):
-        """ Solmujen naapurit, viisto polku
+        """ Node neighbours, diagonal
         """
         for row in self.nodes:
             for node in row:
@@ -199,7 +199,7 @@ class Map:
 
 
     def heuristic_manhattan(self, goal):
-        """ Manhattan heuristiikka
+        """ Manhattan heuristics
         """
         for row in self.nodes:
             for node in row:
@@ -209,7 +209,7 @@ class Map:
 
 
     def heuristic_euclidian(self, goal):
-        """ Eukliidinen heuristiikka
+        """ Euclide heuristics
         """
         for row in self.nodes:
             for node in row:
@@ -219,7 +219,7 @@ class Map:
 
 
     def heuristic_chebyshev(self, goal):
-        """ Chebyshev heuristiikka
+        """ Chebyshev heuristics
         """
         for row in self.nodes:
             for node in row:
@@ -229,7 +229,7 @@ class Map:
 
 
     def track_path(self, diagonal):
-        """ Polun track
+        """ Path track
         """
         node = self.goal.previous
         count = 0
@@ -244,7 +244,7 @@ class Map:
 
 
     def track_path_jps(self, path):
-        """ Polun track JPS
+        """ Path track JPS
         """
         for i in range(len(path)-1):
             node0 = path[i]
@@ -270,7 +270,7 @@ class Map:
 
 
     def reset(self):
-        """Karttaruudukon reset
+        """Map grid reset
         """
         for row in self.nodes:
             for node in row:

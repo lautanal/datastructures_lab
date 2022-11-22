@@ -5,23 +5,23 @@ import jps
 
 
 class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, jps.JpsMixin):
-    """Luokka, joka käynnistää eri algoritmit
+    """Class that starts different algorithms
 
     Attributes:
-        map: Karttaruudukko
-        drawfunc: Piirtofunktio
-        method: Käytetty metodi
-        diagonal: Polun tyyppi (diagonal / xy)
-        animate: Animaatio päällä
+        map: Map grid
+        drawfunc: Drawing function
+        method: Method used
+        diagonal: Path type (diagonal / xy)
+        animate: Animation on/off
     """
 
 
     def __init__(self, map, drawfunc):
-        """Konstruktori, joka luo uuden Algorithm-alkion
+        """Constructor to create a new algorithm instance
 
         Args:
-            map: Karttaruudukko
-            drawfunc: Piirtofunktio
+            map: Grid map
+            drawfunc: Drawing function
         """
         self.drawfunc = drawfunc
         self.map = map
@@ -31,7 +31,7 @@ class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, 
 
 
     def set_method(self):
-        """Metodin vaihto
+        """Method selection
         """
         if self.method == 'D':
             self.method = 'A'
@@ -48,7 +48,7 @@ class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, 
 
 
     def set_diagonal(self):
-        """Polun tyyppi (diagonal / xy)
+        """Path type (diagonal / xy)
         """
         if not self.method == 'J':
             if self.diagonal:
@@ -58,7 +58,7 @@ class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, 
 
 
     def set_animate(self):
-        """Animaatio päällä / pois
+        """Animation on / off
         """
         if self.animate:
             self.animate = False
@@ -67,7 +67,7 @@ class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, 
 
 
     def set_map(self, map):
-        """Uusi kartta
+        """New map
         """
         self.map = map
         self.method = 'D'
@@ -76,7 +76,7 @@ class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, 
 
 
     def calculate(self):
-        """Laskennan käynnistys
+        """Route calculation
         """
         if self.method == 'D':
             result, time = self.dijkstra()
@@ -91,18 +91,18 @@ class Algorithm(dijkstra.DijkstraMixin, astar.AstarMixin, idastar.IdastarMixin, 
                 self.map.track_path_jps(path)
             else:
                 npath, costsum = self.map.track_path(self.diagonal)
-            print(f'\n*** REITTI LÖYTYI ***')
+            print(f'\n*** ROUTE FOUND ***')
             if self.method == 'D':
-                print('Dijkstran menetelmä')
+                print('Dijkstra method')
             elif self.method == 'A':
-                print('A* -menetelmä')
+                print('A* -method')
             elif self.method == 'I':
-                print('IDA* -menetelmä')
+                print('IDA* -method')
             elif self.method == 'J':
-                print('Jump Point Search -menetelmä')
-            print(f'Laskenta vei {time:.3f} sekuntia\n' \
-                f'Polun solmujen lukumäärä {npath}\nPolun painotettu pituus {costsum}')
+                print('Jump Point Search -method')
+            print(f'Calculation took {time:.3f} seconds\n' \
+                f'Route node count {npath}\nRoute weighted length {costsum}')
             return True, npath, costsum, time
         else:
-            print(f'\n*** REITTIÄ EI LÖYTYNYT ***')
+            print(f'\n*** ROUTE NOT FOUND ***')
             return False, 0, 0, 0

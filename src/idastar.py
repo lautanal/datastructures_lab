@@ -5,21 +5,21 @@ from heapq import heappush, heappop
 class IdastarMixin:
 #    def idastar(map, diagonal, animate, drawnode):
     def idastar(self):
-        """IDA* -algoritmi
+        """IDA* -algorithm
 
         Attributes:
-            map: Karttaruudukko
-            diagonal: Polun tyyppi (diagonal / xy)
-            animate: Animaatio päällä
-            drawnode: Karttaruudun piirtofunktio
+            map: Map grid
+            diagonal: Path type (diagonal / xy)
+            animate: Animation on/off
+            drawnode: Grid node draw function
 
         Returns:
-            True: Palauttaa arvon True, jos reitti löytyi
-            time: laskentaan kulunut aika
+            True: Returns True if route found
+            time: Time used for route calculation
         """
         tstart = timer()
 
-        # Naapurit ja heuristiikka
+        # Neighbours and heuristics
         if self.diagonal:
             self.map.neighbors_diag()
             self.map.heuristic_euclidian(self.map.goal)
@@ -28,7 +28,7 @@ class IdastarMixin:
             self.map.neighbors_xy()
             self.map.heuristic_manhattan(self.map.goal)
 
-        # Alustukset
+        # Initial settings
         self.map.start.costsum = 0
         threshold = self.map.start.heuristic
         paths = []
@@ -36,9 +36,9 @@ class IdastarMixin:
         drawcount = 0
         update = False
 
-        # Hakulooppi
+        # Search loop
         while paths:
-            # Edetään polkuja kunnes kynnys ylittyy
+            # Advance paths until threshold
             tmin = float("inf")
             newpaths = []
             while paths:
@@ -50,71 +50,72 @@ class IdastarMixin:
                     update = True
                     drawcount = 0
 
-                # Syvyyshaku kynnykseen asti
+                # Deep search until threshold
                 res = self.idastar_search(path, threshold, newpaths, update)
 
-                # Maali löytyi
+                # Goal found
                 if res < 0:
                     return True, timer() - tstart
 
-                # Uusi hakukynnys
+                # New search threshold
                 elif res < tmin:
                     tmin = res
 
-            # Uudet hakupolut ja uusi kynnys
+            # New paths and threshold
             paths = newpaths
             threshold = tmin
 
 
-        # Reittiä ei löytynyt
+        # No route found
         return False, timer() - tstart
 
 
     def idastar_search(self, path, threshold, paths, update):
-        """IDA* -syvyyshakurutiini
+        """IDA* -deep search routine
 
         Attributes:
-            path: Polku ruutuun
-            threshold: Etsintäkynnys
-            goal: Maaliruutu
-            paths: Etsintäpolut
-            diagonal: Polun tyyppi (diagonal / xy)
-            animate: Animaatio päällä
-            drawnode: Karttaruudun piirtofunktio
+            path: Path to node
+            threshold: Search threshold
+            goal: Goal node
+            paths: Search paths
+            diagonal: Path type (diagonal / xy)
+            animate: Animation on/off
+            drawnode: Grid node drawing function
 
         Returns:
-            tmin: Uusi kynnysarvo etsinnälle
+            tmin: New search threshold
         """
+
         node = path[-1]
         costsum = node.costsum
 
-        # Maali löytyi
+        # Goal found
         if node == self.map.goal:
             return -1
 
-        # Animaatio
+        # Animation
         node.set_visited()
         if self.animate:
             self.drawfunc(node, update)
 
-        # Hakukynnys ylittyi
+        # Search threshold exceeded
         estimate = costsum + node.heuristic
         if estimate > threshold:
             heappush(paths, (estimate, path.copy()))
             return estimate
 
-        # Käydään läpi naapurit
+        # Neighbours
         tmin = float("inf")
         for neighbor in node.neighbors:
             if neighbor not in path:
                 deltacost = neighbor.cost
-                # Viisto polku
+                # Diagonal path
                 if self.diagonal:
                     deltacost = sqrt((node.row - neighbor.row)**2 + \
                         (node.col - neighbor.col)**2) * (node.cost + neighbor.cost)/2
                 newcostsum = costsum + deltacost
 
-                # Jatketaan syvyyshakua
+                # Continue deep search
                 if newcostsum < neighbor.costsum:
                     neighbor.costsum = newcostsum
                     neighbor.previous = node

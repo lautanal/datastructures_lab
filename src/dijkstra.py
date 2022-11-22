@@ -5,64 +5,64 @@ from bheap import Bheap
 class DijkstraMixin:
 #    def dijkstra(map, diagonal, animate, drawnode):
     def dijkstra(self):
-        """Dijkstran algoritmi
+        """Dijkstra algorithm
 
         Attributes:
-            map: Karttaruudukko
-            diagonal: Polun tyyppi (diagonal / xy)
-            animate: Animaatio päällä
-            drawnode: Karttaruudun piirtofunktio
+            map: Map grid
+            diagonal: Path type (diagonal / xy)
+            animate: Animation on/off
+            drawnode: Grid node drawing function
 
         Returns:
-            True: Palauttaa arvon True, jos reitti löytyi
-            time: laskentaan kulunut aika
+            True: If route found
+            time: Time used for route calculation
         """
         tstart = timer()
 
-        # Naapurit
+        # Neighbours
         if self.diagonal:
             self.map.neighbors_diag()
         else:
             self.map.neighbors_xy()
 
-        # Alkuasetukset
+        # Initial settings
         self.map.start.costsum = 0
         bheap = Bheap(self.map.nrows*self.map.ncols)
         bheap.put((0, 0, self.map.start))
         count = 0
         drawcount = 0
 
-        # Binäärikeko-looppi
+        # Binary heap loop
         while not bheap.empty():
-            # Seuraava solmu keosta
+            # Next node from heap
             node = bheap.get()[2]
 
-            # Maali löytyi
+            # Goal found
             if node == self.map.goal:
                 return True, timer() - tstart
 
-            # Käydään läpi naapurit
+            # Neighbours
             for neighbor in node.neighbors:
                 if neighbor.visited:
                     continue
                 deltacost = neighbor.cost
-                # Vino reitti
+                # Diagonal path
                 if self.diagonal:
                     deltacost = sqrt((node.row - neighbor.row)**2 + \
                         (node.col - neighbor.col)**2) * (node.cost + neighbor.cost) / 2
                 newcostsum = node.costsum + deltacost
 
-                # Löytyi parempi reitti
+                # A better route found
                 if newcostsum < neighbor.costsum:
                     count += 1
                     neighbor.previous = node
                     neighbor.costsum = newcostsum
                     bheap.put((newcostsum, count, neighbor))
 
-            # Merkitään solmu käsitellyksi
+            # Mark node visited
             node.set_visited()
 
-            # Animaatio
+            # Animation
             if self.animate:
                 if drawcount < 200:
                     drawcount += 1
@@ -71,5 +71,5 @@ class DijkstraMixin:
                     self.drawfunc(node, True)
                     drawcount = 0
 
-        # Polkua ei löytynyt
+        # Route not found
         return False, timer() - tstart

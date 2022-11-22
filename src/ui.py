@@ -9,41 +9,41 @@ from perftest import Perftest
 
 # Käyttöliittymä
 class Ui:
-    """Käyttöliittymän luokka
+    """User interface class
 
     Attributes:
-        MAXWIDTH: Ikkunan maksimileveys pikseleinä
-        MAXHEIGHT: Ikkunan maksimileveys pikseleinä
-        TEXTAREA: Ikkunan tekstiosan koko
-        TEXTPOS: Ikkunan tekstiosan paikka
-        nrows: Rivien lukumäärä
-        ncols: Sarakkeiden lukumäärä
-        gsize: Karttaruudun koko pikseleinä
-        win: Pygame-ikkuna
-        width: Pygame-ikkunan leveys pikseleinä
-        height: Pygame-ikkunan korkeus pikseleinä
-        map: Karttaruudukko
-        costmap: Kartan tyyppi, costmap=True -> painotettu ruutukartta
-        drawfunc: Piirtorutiini
-        algorithm: Algoritmien käynnistysrutiini
-        files = Tiedostojen käsittelijä
-        edit: Kartan editointi käynnissä
-        run: Pygame-käynnissä
+        MAXWIDTH: Max window width in pixels
+        MAXHEIGHT: Max window height in pixels
+        TEXTAREA: Window text part size in pixels
+        TEXTPOS: Text window position
+        nrows: Row number
+        ncols: Column number
+        gsize: Grid square size in pixels
+        win: Pygame-window
+        width: Pygame-window size in pixels
+        height: Pygame-iwindow height in pixels
+        map: grid map
+        costmap: Map type (costmap is with weighted nodes)
+        drawfunc: Draw function
+        algorithm: Algorithm routines
+        files = File handler
+        edit: Map edit in operation
+        run: Pygame is running
     """
 
     def __init__(self, MAXWIDTH, MAXHEIGHT, nrows, ncols, TEXTAREA, TEXTPOS):
-        """Luokan konstruktori, joka luo uuden käyttöliittymän.
+        """The constructor that creates a user interface.
 
         Args:
-            MAXWIDTH: Ikkunan maksimileveys pikseleinä
-            MAXHEIGHT: Ikkunan maksimileveys pikseleinä
-            TEXTAREA: Ikkunan tekstiosan koko pikseleinä
-            TEXTPOS: Ikkunan tekstiosan paikka, True -> alalaita, False -> oikea sivu
-            nrows: Rivien lukumäärä
-            ncols: Sarakkeiden lukumäärä
+            MAXWIDTH: Max window width in pixels
+            MAXHEIGHT: Max window height in pixels
+            TEXTAREA: Window text part size in pixels
+            TEXTPOS: Text window position, True -> bottom, False -> right side
+            nrows: Row number
+            ncols: Column number
         """
 
-        # Ikkunan kokoparametrit
+        # IWindow parameters
         if TEXTPOS:
             self.MAXWIDTH = MAXWIDTH
             self.MAXHEIGHT = MAXHEIGHT - TEXTAREA
@@ -62,28 +62,28 @@ class Ui:
         self.nrows = nrows
         self.ncols = ncols
 
-        # Pygame-ikkunan luonti
-        pygame.display.set_caption('Paras reitti')
+        # Pygame-window
+        pygame.display.set_caption('Best route')
         self.win = pygame.display.set_mode((self.width, self.height))
 
-        # Kartan alustus
+        # Map init
         self.map = Map(self.nrows, self.ncols, self.gsize)
         self.costmap = True
         self.map.generate_costs()
 
-        # Algoritmi- ja piirtofunktioiden alustus
+        # Algorithm and draw function init
         self.drawfunc = Draw(self.win, self.width, self.height, self.map, self.TEXTPOS)
         self.algorithm = Algorithm(self.map, self.drawfunc.drawnode)
         self.drawfunc.set_texts(self.algorithm)
         self.files = Files()
 
-        # Ohjelman tilat
+        # Program run status
         self.edit = False
         self.run = True
 
 
     def start(self):
-        """Käyttöliittymän käynnistys.
+        """User interface start.
         """
 
         # Event loop
@@ -94,7 +94,7 @@ class Ui:
                 if event.type == pygame.QUIT:
                     self.run = False
 
-            # Hiirikomennot
+            # Mouse commands
                 # Alku-, loppupisteet, esteiden syöttö  ja editointi (hiiren vasen näppäin)
                 if pygame.mouse.get_pressed()[0]:
                     self.leftclick()
@@ -103,7 +103,7 @@ class Ui:
                 elif pygame.mouse.get_pressed()[2]:
                     self.rightclick()
 
-            # Näppäinkomennot
+            # Keyboard commands
                 if event.type == pygame.KEYDOWN:
                     self.keyboard(event)
 
@@ -111,7 +111,7 @@ class Ui:
 
 
     def leftclick(self):
-        """Hiiren vasemman näppäimen klikkaus.
+        """Mouse left click.
         """
         pos = pygame.mouse.get_pos()
         row, col = self.get_clickpos(pos)
@@ -134,7 +134,7 @@ class Ui:
 
 
     def rightclick(self):
-        """Hiiren oikean näppäimen klikkaus.
+        """Mouse right click.
         """
         pos = pygame.mouse.get_pos()
         row, col = self.get_clickpos(pos)
@@ -154,14 +154,14 @@ class Ui:
 
 
     def get_clickpos(self, pos):
-        """Klikkauksen koordinaatit.
+        """Click position.
 
         Args:
-            pos: Klikkauksen positio pikseleinä
+            pos: Click position in pixels
 
         Returns:
-            row: Klikatun ruudun rivi
-            col: Klikatun ruudun sarake
+            row: Click row
+            col: Click column
         """
         col = pos[0] // self.gsize
         row = pos[1] // self.gsize
@@ -169,14 +169,14 @@ class Ui:
 
 
     def keyboard(self, event):
-        """Näppäinkomennot.
+        """Keyboard commands.
         """
-        # A: Animation, animaatio päälle / pois
+        # A: Animation, animation on / off
         if event.key == pygame.K_a:
             self.algorithm.set_animate()
             self.drawfunc.set_texts_animation(self.algorithm)
 
-        # C: Clear, Lähtö- ja maalipisteiden pyyhkiminen
+        # C: Clear, clear start and goal positions
         if event.key == pygame.K_c:
             if self.map.goal:
                 self.map.goal.clear()
@@ -187,58 +187,58 @@ class Ui:
             self.map.reset()
             self.drawfunc.set_texts(self.algorithm)
 
-        # D: Diagonal, polun tyyppi
+        # D: Diagonal, path type
         if event.key == pygame.K_d:
             self.algorithm.set_diagonal()
             self.map.reset()
             self.drawfunc.set_texts(self.algorithm)
 
-        # E: Edit, ruutujen editoinnin aloitus
+        # E: Edit, start editing grid nodes
         if event.key == pygame.K_e:
             print('Editointi aloitus')
             self.edit = True
 
-        # F: Kartan luku tiedostosta f.map
+        # F: File read, read map file f.map
         if event.key == pygame.K_f:
             self.files.fname = 'f.map'
             maparray = self.files.read()
             if maparray:
                 self.newmap(maparray)
 
-        # G: Generate, uusi painottamaton random-kartta
+        # G: Generate, new randow map (without node weights)
         if event.key == pygame.K_g:
             self.costmap = False
             self.newmap(None)
 
-        # M: Method, metodin valinta
+        # M: Method, method selection
         if event.key == pygame.K_m:
             self.algorithm.set_method()
             self.map.reset()
             self.drawfunc.set_texts(self.algorithm)
 
-        # N: New, uusi painotettu random-kartta
+        # N: New, new random map with weights
         if event.key == pygame.K_n:
             self.costmap = True
             self.newmap(None)
 
-        # Q: Quit, ruutujen editoinnin lopetus
+        # Q: Quit, quit editing
         if event.key == pygame.K_q:
             print('Editointi lopetus')
             self.edit = False
 
-        # R: Reset, lasketun reitin pyyhkiminen
+        # R: Reset, erase calculated route
         if event.key == pygame.K_r:
             self.map.reset()
             self.drawfunc.set_texts(self.algorithm)
 
-        # S: Start, laskennan aloitus
+        # S: Start, start calculation
         if event.key == pygame.K_s:
             if self.map.start and self.map.goal:
                 self.map.reset()
                 result = self.algorithm.calculate()
                 self.drawfunc.set_results(result)
 
-        # T: Test, suorituskykytesti, 3 menetelmää, painotetut ruudut
+        # T: Test, performance test, 3 methods, weighted nodes
         if event.key == pygame.K_t:
             self.edit = False
             self.drawfunc.set_texts(self.algorithm)
@@ -246,7 +246,7 @@ class Ui:
             perftest.test3()
             del perftest
 
-        # P: Suorituskykytesti 4 menetelmää, painottamattomat ruudut, diagonaalireitti
+        # P: performance test, 3 methods, weighless nodes, diagonal path
         if event.key == pygame.K_p:
             self.edit = False
             self.drawfunc.set_texts(self.algorithm)
@@ -254,12 +254,12 @@ class Ui:
             perftest.test4()
             del perftest
 
-        # W: Write, kartan kirjoitus tiedostoon f.map
+        # W: Write, write map to file f.map
         if event.key == pygame.K_w:
             self.files.fname = 'f.map'
             self.files.write(self.map)
 
-        # 1,2,3,4,5,6,7,8,9: Uusi kartta tiedostosta 1.map .... 9.map
+        # 1,2,3,4,5,6,7,8,9: New map from file 1.map .... 9.map
         if event.key >= pygame.K_1 and event.key <= pygame.K_9:
             fname = str(event.key-48) + '.map'
             self.files.fname = fname
@@ -267,13 +267,13 @@ class Ui:
             if maparray:
                 self.newmap(maparray)
 
-        # +: Uusi kartta, ruutujen määrän lisäys (+10 molemmissa suunnissa)
+        # +: New map, increase node count (+10 in both directions)
         if event.key == pygame.K_PLUS and self.ncols < 500:
             self.ncols += self.ncols // 10
             self.nrows += self.nrows // 10
             self.newmap(None)
 
-        # -: Uusi kartta, ruutujen määrän vähennys (-10 molemmissa suunnissa)
+        # -: New map, decrease node count (-10 in both directions)
         if event.key == pygame.K_MINUS and self.ncols > 10:
             self.ncols -= self.ncols // 10
             self.nrows -= self.nrows // 10
@@ -281,12 +281,12 @@ class Ui:
 
 
     def newmap(self, maparray):
-        """Uusi kartta ja Pygame-ikkuna.
+        """New map and Pygame window.
 
         Args:
-            maparray: Kartta kirjaintaulukkona
+            maparray: map as an array
         """
-        # Kartan parametrit
+        # Map parameters
         if maparray:
             self.ncols = len(maparray[0])
             self.nrows = len(maparray)
@@ -299,17 +299,17 @@ class Ui:
             self.width = self.gsize * self.ncols + self.TEXTAREA
             self.height = self.gsize * self.nrows
 
-        # Uusi Pygame-ikkuna
+        # New Pygame window
         oldwin = self.win
         self.win = pygame.display.set_mode((self.width, self.height))
         del oldwin
 
-        # Uusi kartta
+        # New map
         oldmap = self.map
         self.map = Map(self.nrows, self.ncols, self.gsize)
         del oldmap
 
-        # Ruutujen cost-arvot
+        # Node costs generation
         if maparray:
             self.map.set_costs(maparray)
         elif self.costmap:
@@ -318,7 +318,7 @@ class Ui:
             self.map.generate_obstacles()
 
 
-        # Algoritmin ja piirtofunktion asetukset
+        # Algorithm and draw function settings
         self.algorithm.set_map(self.map)
         self.drawfunc.set_win(self.win, self.width, self.height, self.map)
         self.drawfunc.set_texts(self.algorithm)
