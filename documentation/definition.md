@@ -8,29 +8,29 @@ Kartan jokaisella ruuduilla on tietty painoarvo (esim. välillä 1-9), joka kert
 
 Polun etsinnän ohella vertaillaan myös algoritmien tehokkuutta toisiinsa nähden.
 
-## Ohjelmointikieli
+## Programming language
 
-Ohjelmointikielenä käytetään Pythonia (versio 3.8.8).  Visualisointi ja käyttöliittymä toteutetaan Pygame-kirjaston avulla.
+The program is written in Python (version 3.8.8).  Visualisation and user interface are written using Pygame-library.
 
-## Algoritmit ja tietorakenteet
+## Algorithms and data structures
 
-Polunetsinnän nopeutta testataan ainakin usealla eri algoritmilla, joita ovat Dijkstran perinteinen, A*, IDA* ja Jump Point Search.
+Route finding is tested with Dijkstra, A*, IDA* ja Jump Point Search algorithms.
 
-## Ohjelman syötteet ja tulosteet
+## Program inputs
 
-Ohjelma generoi itse ruutukartan tai käyttäjä voi ladata tiedostosta kartan.
+The program generates a grid map or the user can load a map from file.
 
-Käyttäjä valitsee graafisen käyttöliittymän kautta reitin lähtö- ja maaliruudut sekä käytetyn algoritmin ja muut tarvittavat parametrit.  Graafisen käyttöliittymän kautta voidaan myös lisätä läpäisemättömiä esteitä kartalle.
+The user selects start and end points, route finding algorithm and other parameters.
 
-Ohjelma näyttää polun visuaalisesti.  Polun haku voidaan animoida realiaikaisesti.
+The program shows the calculated route visually.  Path finding can be animated.
 
-## Aika- ja tilavaativuudet
+## Time and space complexity
 
-Aikavaatimus: O((V + E log V)
+Time complexity: O((V + E log V)
 
-Tilavaatimus: O(V)
+Space complexity: O(V)
 
-## Lähteet
+## Sources
 
 [Dijkstra Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 
@@ -39,11 +39,3 @@ Tilavaatimus: O(V)
 [IDA* Wikipedia](https://en.wikipedia.org/wiki/Iterative_deepening_A*)
 
 [JPS Wikipedia](https://en.wikipedia.org/wiki/Jump_point_search)
-
-## Opinto-ohjelma
-
-Tietojenkäsittelyn kandidaatti
-
-## Dokumentaation kieli
-
-Suomi
