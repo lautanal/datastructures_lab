@@ -26,9 +26,9 @@ The program is run and controlled through a user interface :
 
 The user chooses the start and end points with a mouse left click.  After choosing the start and end point, the user can mark the blocked nodes with a mouse left click.  Start and end points and blocked nodes can be erased with a mouse right click.
 
-The algorithm is chosen with keyboard command m.
+The algorithm is chosen with a keyboard command m.
 
-Route calculation starts with keyboard command s.
+Route calculation starts with a keyboard command s.
 
 ## Commands
 
@@ -48,7 +48,7 @@ a : animointi, animation on/off toggle
 
 n: new, generates a new random map (weighted nodes)
 
-g: generate, generates anew map without weights (all nodes equal)
+g: generate, generates a new map without weights (all nodes equal)
 
 t : test, program test 10 random maps (koko 100 x 100)
 
@@ -66,15 +66,15 @@ f : file, load map from file f.map (folder data/maps)
 
 ### Mouse commands:
 
-Left click chooses the start point (if it does not exist)
+A left click chooses the start point (if it does not exist)
 
-Left click chooses the end point (when start point is chosen and end point does not exist)
+A left click chooses the end point (when start point is chosen and end point does not exist)
 
-Left click chooses the a blocked node (when start point and end point are already chosen)
+A left click chooses the a blocked node (when start point and end point are already chosen)
 
-Right click erases a node (start point, emnd point or a blocked node)
+A right click erases a node (start point, emnd point or a blocked node)
 
-In edit mode left click increases the node cost, right click decreases the node cost
+In edit mode a left click increases the node cost, a right click decreases the node cost
 
 
 
