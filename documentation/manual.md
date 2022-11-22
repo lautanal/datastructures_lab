@@ -1,81 +1,81 @@
-# Käyttöohje
+# User manual
 
-## Ohjelman lataus
+## Download
 
-Lataa sovelluksen [release](https://github.com/lautanal/tiralabra/releases/tag/Final).
+Download release [release](https://github.com/lautanal/tiralabra/releases/tag/Final).
 
-## Ohjelman asentaminen
+## Installation
 
-Ohjelma kopioidaan haluttuun hakemistoon.
+The program is copied to a user defined folder.
 
-Hakemistoon luodaan virtuaaliympäristö seuraavasti:
+A virtual environment is created:
 
 $ poetry install
 
-## Ohjelman käynnistäminen
+## Program running
 
-Ohjelma käynnistetään asennushakemistossa komennolla:
+The program is run in the installation folder using the following command:
 
 $ poetry run python3 src/bestroute.py
 
-## Käyttöliittymä
+## User interface
 
-Sovellusta käytetään Pygamella luodun käyttöliittymän avulla :
+The program is run and controlled through a user interface :
 
 <img src="png/ui3.png" width="750">
 
 Käyttäjä valitsee lähtö- ja maaliruudun hiiren vasemmalla näppäimellä.  Kun lähtö ja maali on valittu, hiiren vasemmalla näppäimellä voi asettaa esteet, joiden läpi reitti ei voi kulkea.
 Lähdön ja maalin sekä esteet voi poistaa hiiren oikealla näppäimellä.
 
-Haluttu menetelmä reitin hakemiseen valitaan näppäimellä m.
+The algorithm is chosen with keyboard command m.
 
-Laskenta käynnistetään näppäimellä s.
+Route finding starts with keyboard command s.
 
-## Komennot
+## Commands
 
-### Näppäinkomennot:
+### Keyboard commands:
 
-s : start, laskee parhaan reitin
+s : start, start calculating the best route
 
-c : clear, poistaa lähtö- ja maalipisteet
+c : clear, clear start and end points
 
-r : reset, pyyhkii lasketun reitin
+r : reset, erase the calculated route
 
-m : metodi, Dijkstra / A* / IDA* / JPS
+m : method, Dijkstra / A* / IDA* / JPS
 
-d : diagonal, polun tyyppi, vain x ja y-suunnat / väli-ilmansuunnat sallittu
+d : diagonal, orthogonal or diagonal toggle
 
-a : animointi, päälle / pois
+a : animointi, animation on/off toggle
 
-n: new, generoi uuden painotetun random-kartan
+n: new, generates a new random map (weighted nodes)
 
-g: generate, generoi uuden painottamattoman random-kartan (kaikki ruudut saman arvoisia)
+g: generate, generates anew map without weights (all nodes equal)
 
-t : test, ohjelma käy läpi kymmenen painotettua random-testikarttaa (koko 100 x 100) ja laskee keskimääräisen hakuajan eri menetelmille
+t : test, program test 10 random maps (koko 100 x 100)
 
-\+ : lisää ruutujen lukumäärää 10 prosentilla molemmissa suunnissa ja generoi uuden kartan
+\+ : increase node count 10% in both directions and generate a new map
 
-\- : vähentää ruutujen lukumäärää 10 prosentilla molemmissa suunnissa ja generoi uuden kartan
+\- : decrease node count 10% in both directions and generate a new map
 
-1 : lataa kartta 1.map (hakemistosta data/maps)
+1 : load map 1.map (from folder data/maps)
 
-2 : lataa kartta 2.map (hakemistosta data/maps)
+2 : load map 2.map (from folder data/maps)
 
-w : write, talleta kartta tiedostoon f.map (hakemistoon data/maps)
+w : write, save map into file f.map (folder data/maps)
 
-f : file, lue karttatiedosto f.map (hakemistosta data/maps)
+f : file, load map from file f.map (folder data/maps)
 
-### Hiiren toiminnot:
+### Mouse commands:
 
-Hiiren vasen näppäin valitsee reitin lähtöpisteen (jos sitä ei ole ennestään kartalla)
+Left click chooses the start point (if it does not exist)
 
-Hiiren vasen näppäin valitsee reitin maalipisteen (kun lähtöpiste on valittu ja maalipiste puuttuu)
+Left click chooses the end point (when start point is chosen and end point does not exist)
 
-Hiiren vasen näppän asettaa esteen (kun alku- ja maalipiste on asetettu)
+Left click chooses the a blocked node (when start point and end point are already chosen)
 
-Hiiren oikea näppäin pyyhkii ruudun (alkupisteen, maalipisteen tai esteen)
+Right click erases a node (start point, emnd point or a blocked node)
 
-Editoinnissa hiiren vasen näppäin lisää ruudun painoarvoa, oikea vähentää
+In edit mode left click increases the node cost, right click decreases the node cost
 
 
 
