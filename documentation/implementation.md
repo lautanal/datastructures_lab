@@ -93,8 +93,6 @@ Grid size | Nodes | Edges | V + E log V | Algorithm | Average runtime (10 maps)|
 
 The measured Dijkstra, A\*- ja JPS time complexities are in accordance with the theoretical O(V + E logV) time complexity.
 
-<img src="/dokumentaatio/png/aikavaativuus2b.png" width="750">
-
 A\* method is almost allways the best route finding algorithm.  Dijkstra method works also well, but IDA\* is not at its best with this kind of grid maps.  JPS method works well when it can be used (weightless grid maps).
 
 ## Defects and improvements
