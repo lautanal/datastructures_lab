@@ -97,7 +97,7 @@ A\* method is almost allways the best route finding algorithm.  Dijkstra method 
 
 ## Defects and improvements
 
-JPS-method can not be used in a weighted grid map.  JPS-method accepts a diagonal route between  nodes.
+JPS-method can not be used with weighted grid maps.  JPS-method accepts a diagonal route between  nodes.
 
 IDA*-algorithm is not very well suited for weighted grid maps.
 
