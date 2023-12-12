@@ -7,7 +7,7 @@ from files import Files
 from perftest import Perftest
 
 
-# Käyttöliittymä
+# User interface
 class Ui:
     """User interface class
 
@@ -43,7 +43,7 @@ class Ui:
             ncols: Column number
         """
 
-        # IWindow parameters
+        # Window parameters
         if TEXTPOS:
             self.MAXWIDTH = MAXWIDTH
             self.MAXHEIGHT = MAXHEIGHT - TEXTAREA

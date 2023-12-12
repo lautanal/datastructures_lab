@@ -93,7 +93,7 @@ class Map:
     def set_start(self, start):
         """ Start node
         """
-        # Big size start marker
+        # Start marker
         if self.gsize < 10:
             if start:
                 if self.on_map(start.row-1, start.col): 
@@ -121,7 +121,7 @@ class Map:
     def set_goal(self, goal):
         """ Goal node
         """
-        # Big size goal marker
+        # Goal marker
         if self.gsize < 10:
             if goal:
                 if self.on_map(goal.row-1, goal.col): 
