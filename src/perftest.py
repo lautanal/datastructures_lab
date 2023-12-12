@@ -2,7 +2,7 @@ import pygame
 from map import Map
 
 class Perftest:
-    """Class to start performance test
+    """Class to start performance tests
 
     Attributes:
         WIDTH: window max width in pixels
