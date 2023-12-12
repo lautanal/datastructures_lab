@@ -2,10 +2,10 @@ import os
 
 
 def read(fname):
-    """Kartan luku tiedostosta.
+    """Read a map from a file.
 
     Returns:
-        maparray: Luettu kartta kirjaintaulukkona
+        maparray: The map as an array
     """
     maparray = []
     try:
@@ -18,16 +18,16 @@ def read(fname):
                 if irow > 4:
                     row = row.replace('\n', '')
                     maparray.append([char for char in row])
-        print(f'Karttatiedosto {fname} luettu')
+        print(f'Map file {fname} read')
     except FileNotFoundError:
-        print('Tiedostoa ei löytynyt')
+        print('File not found')
     return maparray
 
 
 def write(map, fname):
-    """Kartan kirjoitus tiedostoon.
+    """Write a map to a file.
     Args:
-        map: Talletettava kartta
+        map: The map to be written
     """
     dirname = os.path.dirname(__file__)
     data_file_path = os.path.join(dirname, '..', 'data', 'maps', fname)            
@@ -48,7 +48,7 @@ def write(map, fname):
                 s += node
             s += '\n'
             file.write(s)
-    print(f'Karttatiedosto {fname} talletettu')
+    print(f'Map file {fname} saved')
 
 map = read('6.map')
 write(map, '6b.map')

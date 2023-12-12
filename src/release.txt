@@ -1,22 +1,27 @@
-Ruutukarttanavigaattori etsii parhaan reitin kartan kahden pisteen välillä. Joka ruudulla on painoarvo, joka vastaa kustannusta tai aikaa, joka kuluu ruudun läpi mentäessä. Käyttäjä valitsee hiirellä reitin alku- ja loppupisteen ja lisää halutessaan esteet, joiden läpi reitti ei voi kulkea.
+The Grid Map Navigator finds the best path between two grid points on a map.
+Every grid point has a weight value, which represents the cost or time required to pass the grid point.
+The user selects the start and end points and obstacles with mouse clicks.
 
-Ohjelma vaatii Pygame-kirjaston asennuksen. Ohjelma kopioidaan haluttuun hakemistoon ja sille luodaan virtuaaliympäristö seuraavasti:
+The program requires the Pygame-library installation. The program can be copied to a desired folder.
+The virtual environment is set with the following shell command:
 $ poetry install
 
-Ohjelma käynnistetään komennolla:
+The program is started with the shell command:
 $ poetry run python3 src/bestroute.py
 
-Käyttäjä valitsee lähtö- ja maaliruudun hiiren vasemmalla näppäimellä.  Kun lähtö ja maali on valittu, hiiren vasemmalla näppäimellä voi asettaa esteet, joiden läpi reitti ei voi kulkea.  Lähdön ja maalin sekä esteet voi poistaa hiiren oikealla näppäimellä.
+The user selects the path start and end points with mouse left clicks. 
+When start and end points are set, the user can select obstacles with mouse left clicks. 
+The start and end points and obstacles can be erased with mouse right clicks.
 
-Haluttu menetelmä reitin hakemiseen valitaan näppäimellä m.
-Laskenta käynnistetään näppäimellä s.
+The desired search method is set with keyboard command m.
+The calculation is started with keyboard command s.
 
-Ohjelman näppäinkomennot:
-c : clear, poistaa kartan ja generoi uuden
-r : reset, pyyhkii lasketun reitin
-m : metodi, Dijkstra / A* / IDA*
-d : diagonal, polun tyyppi, vain x ja y-suunnat / väli-ilmansuunnat sallittu
-s : start, laskee parhaan reitin
+Program key commands:
+c : clear, removes the present map and generates a new one
+r : reset, resets the calculated route
+m : method, Dijkstra / A* / IDA*
+d : diagonal, path type, diagonal apths allowed / only orthogonal
+s : start, start path calculation
 a: animointi päälle / pois
 
 \+ : lisää ruutujen lukumäärää 10:llä molemmissa suunnissa ja generoi uuden kartan
@@ -28,9 +33,9 @@ f: file, lue karttatiedosto f.map (hakemistosta data/maps)
 e: edit, editoi karttaa
 q: quit, lopeta editointi
 
-Hiiren toiminnot:
-Hiiren vasen näppäin valitsee reitin lähtöpisteen (jos sitä ei ole ennestään kartalla)
-Hiiren vasen näppäin valitsee reitin loppupisteen (kun lähtöpiste on valittu)
-Hiiren vasen näppän asettaa esteen (kun alku- ja loppupiste on asetettu)
-Hiiren oikea näppäin pyyhkii ruudun (alkupisteen, loppupisteen tai esteen)
-Editoinnissa hiiren vasen näppäin lisää ruudun painoarvoa, oikea vähentää
+Mouse commands:
+Left click sets the start point (if not already set)
+Left click sets the end point (when start point set)
+Left click sets an obstacle (when start and end points already set)
+Right click erases a grid point (start point, end point or an obstacle)
+In edit mode left click increases grid weight, right click decreases weight
