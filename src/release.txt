@@ -9,8 +9,8 @@ $ poetry install
 The program is started with the shell command:
 $ poetry run python3 src/bestroute.py
 
-The user selects the path start and end points with mouse left clicks. 
-When start and end points are set, the user can select obstacles with mouse left clicks. 
+The user selects the path start and end points with mouse left clicks.
+When start and end points are set, the user can select obstacles with mouse left clicks.
 The start and end points and obstacles can be erased with mouse right clicks.
 
 The desired search method is set with keyboard command m.
@@ -22,16 +22,16 @@ r : reset, resets the calculated route
 m : method, Dijkstra / A* / IDA*
 d : diagonal, path type, diagonal apths allowed / only orthogonal
 s : start, start path calculation
-a: animointi päälle / pois
+a: animation on / off
 
-\+ : lisää ruutujen lukumäärää 10:llä molemmissa suunnissa ja generoi uuden kartan
-\- : vähentää ruutujen lukumäärää 10:llä molemmissa suunnissa ja generoi uuden kartan
-1 : lataa kartta 1.map (hakemistosta data/maps)
-2 : lataa kartta 2.map (hakemistosta data/maps)
-w: write, talleta kartta tiedostoon f.map (hakemistoon data/maps)
-f: file, lue karttatiedosto f.map (hakemistosta data/maps)
-e: edit, editoi karttaa
-q: quit, lopeta editointi
+\+ : increase the number of squares in both directions by 10 and generate a new map
+\- : decrease the number of squares in both directions by 10 and generate a new map
+1 : load map 1.map (in folder data/maps)
+2 : load map 2.map (in folder data/maps)
+w: write, save map to file f.map (in folder data/maps)
+f: file, read map from file f.map (in folder data/maps)
+e: edit, edit map
+q: quit, quit edit
 
 Mouse commands:
 Left click sets the start point (if not already set)
