@@ -22,5 +22,5 @@ The program is written in Python.
 
 ## Releases
 
-[Final](https://github.com/lautanal/datastructures_lab/releases/tag/Final)
+[Final](https://github.com/lautanal/datastructures_lab/releases/tag/final)
 
