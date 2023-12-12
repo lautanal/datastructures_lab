@@ -2,33 +2,33 @@ import pygame
 from map import Map
 
 class Perftest:
-    """Luokka, joka käynnistää suorituskykytestauksen
+    """Class to start performance test
 
     Attributes:
-        WIDTH: Ikkunan maksimileveys pikseleinä
-        TEXTAREA: Ikkunan tekstiosan koko pikseleinä
-        nrows: Rivien lukumäärä
-        ncols: Sarakkeiden lukumäärä
-        gsize: Karttaruudun koko pikseleinä
-        win: Pygame-ikkuna
-        width: Pygame-ikkunan leveys pikseleinä
-        height: Pygame-ikkunan korkeus pikseleinä
-        map: Karttaruudukko
-        drawfunc: Piirtorutiini
-        algorithm: Algoritmien käynnistysrutiini
+        WIDTH: window max width in pixels
+        TEXTAREA: window text panel width in pixels
+        nrows: row count
+        ncols: column count
+        gsize: grid size in pixels
+        win: Pygame-window
+        width: Pygame-window width in pixels
+        height: Pygame-window height in pixels
+        map: map array
+        drawfunc: draw function
+        algorithm: algorithms
     """
 
     def __init__(self, WIDTH, HEIGHT, TEXTAREA, TEXTPOS, win, map, algorithm, drawfunc):
         """Konstruktori, joka luo uuden Perftest-alkion
 
         Args:
-        WIDTH: Ikkunan maksimileveys pikseleinä
-        TEXTAREA: Ikkunan tekstiosan koko pikseleinä
-        TEXTPOS: True -> Tekstialue ruudun alallaidassa
-        win: Pygame-ikkuna
-        map: Karttaruudukko
-        drawfunc: Piirtorutiini
-        algorithm: Algoritmien käynnistysrutiini
+        WIDTH: window max width in pixels
+        TEXTAREA: window text panel width in pixels
+        TEXTPOS: True -> Text area in bottom part of the window
+        win: Pygame-window
+        map: map array
+        drawfunc: draw function
+        algorithm: algorithms
         """
 
         if TEXTPOS:
@@ -56,7 +56,7 @@ class Perftest:
 
 
     def test3(self):
-        """Suorituskyvyn testausrutiini.
+        """Performance test.
         """
         results = [0, 0, 0, 0]
         self.ncols = 150
@@ -83,7 +83,7 @@ class Perftest:
 
 
     def test4(self):
-        """Suorituskyvyn testausrutiini.
+        """Performance test.
         """
         results = [0, 0, 0, 0]
         self.ncols = 150
@@ -117,9 +117,9 @@ class Perftest:
 
 
     def newmap(self, obstacles):
-        """Uusi kartta ja Pygame-ikkuna.
+        """New map and Pygame-window.
         """
-        # Kartan parametrit
+        # Map parameters
         self.gsize = min(self.WIDTH // self.ncols, self.HEIGHT // self.nrows)
         if self.TEXTPOS:
             self.width = self.gsize * self.ncols
@@ -128,23 +128,23 @@ class Perftest:
             self.width = self.gsize * self.ncols + self.TEXTAREA
             self.height = self.gsize * self.nrows
 
-        # Uusi Pygame-ikkuna
+        # New Pygame-window
         oldwin = self.win
         self.win = pygame.display.set_mode((self.width, self.height))
         del oldwin
 
-        # Uusi kartta
+        # New map
         oldmap = self.map
         self.map = Map(self.nrows, self.ncols, self.gsize)
         del oldmap
 
-        # Ruutujen cost-arvot tai esteet
+        # Grid weights and obstacles
         if obstacles:
             self.map.generate_obstacles()
         else:
             self.map.generate_costs()
 
-        # Algoritmin ja piirtofunktion asetukset
+        # Algorithm and draw function settings
         self.algorithm.set_map(self.map)
         self.drawfunc.set_win(self.win, self.width, self.height, self.map)
         if obstacles:
