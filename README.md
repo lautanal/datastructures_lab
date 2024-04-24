@@ -4,7 +4,7 @@
 
 <img src="documentation/png/ruutukartta.png" width="750">
 
-The application is a grid map navigator, which finds the best route between two grid nodes.  Every grid node on the map has a value (1-9) representing the cost or time increment added when the route is passing the node.
+The application is a grid map navigator, which finds the best route between two grid nodes.  Each grid node on the map has a value (1-9) representing the cost or time increment added when the route is passing the node.
 
 Route finding can be tested with different algorithms; Dijkstra, A*, IDA* and Jump Point Search.
 
